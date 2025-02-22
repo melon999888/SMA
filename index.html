@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .rain span {
+            position: absolute;
+            top: -20px;
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            animation: rain 1s linear infinite;
+        }
+        @keyframes rain {
+            0% { transform: translateY(-20px) rotate(-20deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(20deg); opacity: 0; }
+        }
+        .lightning {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            animation: lightning 5s infinite;
+            z-index: 2;
+        }
+        @keyframes lightning {
+            0%, 20%, 100% { opacity: 0; }
+            10% { opacity: 1; }
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 3;
+        }
+        .name {
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: slideDown 2s ease-in-out forwards;
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .welcome-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out forwards 2s;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-in-out forwards 4s;
+        }
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+        .social-item:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .social-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+        .social-item:hover img {
+            transform: scale(1.1) rotate(10deg);
+        }
+        .social-item span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .footer-container {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 3;
+        }
+        .footer-line {
+            width: 80%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 auto 10px auto;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: drawLine 1s ease-in-out forwards 6s;
+        }
+        @keyframes drawLine {
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+        .footer {
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeInFooter 2s ease-in-out forwards 7s;
+        }
+        @keyframes fadeInFooter {
+            to {
+                opacity: 1;
+            }
+        }
+        /* نمط خاص لزر فري فاير */
+        .game-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .game-button:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        /* نافذة منبثقة لعرض المعرف */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 10;
+            display: none;
+            perspective: 1000px;
+        }
+        .popup.active {
+            display: block;
+            animation: popupAnimation 1s ease-in-out forwards;
+        }
+        @keyframes popupAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5) rotateY(90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+        .popup h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        .popup p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .popup button {
+            padding: 10px 20px;
+            background: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .popup button:hover {
+            background: #ff9999;
+            transform: scale(1.1);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9;
+            display: none;
+        }
+        .overlay.active {
+            display: block;
+            animation: overlayAnimation 1s ease-in-out forwards;
+        }
+        @keyframes overlayAnimation {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- إضافة مسيقة تلقائية -->
+    <audio autoplay loop>
+        <source src="meseeka.mp3" type="audio/mp3">
+        متصفحك لا يدعم العنصر الصوتي.
+    </audio>
+
+    <div class="rain">
+        <span style="left: 5%; animation-delay: 0s;"></span>
+        <span style="left: 10%; animation-delay: 0.2s;"></span>
+        <span style="left: 15%; animation-delay: 0.4s;"></span>
+        <span style="left: 20%; animation-delay: 0.6s;"></span>
+        <span style="left: 25%; animation-delay: 0.8s;"></span>
+        <span style="left: 30%; animation-delay: 1s;"></span>
+        <span style="left: 35%; animation-delay: 1.2s;"></span>
+        <span style="left: 40%; animation-delay: 1.4s;"></span>
+        <span style="left: 45%; animation-delay: 1.6s;"></span>
+        <span style="left: 50%; animation-delay: 1.8s;"></span>
+        <span style="left: 55%; animation-delay: 2s;"></span>
+        <span style="left: 60%; animation-delay: 2.2s;"></span>
+        <span style="left: 65%; animation-delay: 2.4s;"></span>
+        <span style="left: 70%; animation-delay: 2.6s;"></span>
+        <span style="left: 75%; animation-delay: 2.8s;"></span>
+        <span style="left: 80%; animation-delay: 3s;"></span>
+        <span style="left: 85%; animation-delay: 3.2s;"></span>
+        <span style="left: 90%; animation-delay: 3.4s;"></span>
+        <span style="left: 95%; animation-delay: 3.6s;"></span>
+    </div>
+    <div class="lightning"></div>
+    <div class="container">
+        <div class="name">مسلم</div>
+        <div class="welcome-message">مرحباً بيكم! ده صفحة تواصلي، لو عايزين تتواصلوا معايا اضغطوا على أيقونة الوسيلة اللي تناسبكم.</div>
+        <div class="social-links">
+            <!-- رابط فيسبوك -->
+            <a href="https://www.facebook.com/share/1BSmjz8nVX/" target="_blank" class="social-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                <span>فيس</span>
+            </a>
+            <!-- رابط إنستغرام -->
+            <a href="https://www.instagram.com/jak_moslem?igsh=MTVpaHh0bmRqMzUycw==" target="_blank" class="social-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+                <span>إنستا</span>
+            </a>
+            <!-- رابط تلجرام -->
+            <a href="https://t.me/zox_z8" target="_blank" class="social-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+                <span>تلجرام</span>
+            </a>
+            <!-- رابط واتساب -->
+            <a href="https://wa.me/+201149660314" target="_blank" class="social-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp">
+                <span>واتس</span>
+            </a>
+            <!-- رابط الهاتف -->
+            <a href="tel:+201149660314" target="_blank" class="social-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/159/159832.png" alt="Phone">
+                <span>هاتف</span>
+            </a>
+            <!-- زر فري فاير -->
+            <button class="game-button" onclick="showPopup('freefire')">
+                <span>فري فاير</span>
+            </button>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-line"></div>
+        <div class="footer">جميع الحقوق محفوظة &copy; Mosaad 2025</div>
+    </div>
+
+    <!-- نافذة منبثقة لعرض المعرف -->
+    <div class="popup" id="popup">
+        <h2 id="popup-title">معرف اللعبة</h2>
+        <p id="popup-content">المعرف: <strong>...</strong></p>
+        <button onclick="closePopup()">إغلاق</button>
+    </div>
+    <!-- طبقة التعتيم -->
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // دالة لإظهار النافذة المنبثقة بناءً على الزر المحدد
+        function showPopup(game) {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            const popupTitle = document.getElementById('popup-title');
+            const popupContent = document.getElementById('popup-content');
+
+            if (game === 'freefire') {
+                popupTitle.textContent = 'معرف فري فاير';
+                popupContent.innerHTML = 'المعرف: <strong>1948682066</strong>';
+            }
+
+            popup.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        // دالة لإخفاء النافذة المنبثقة
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
